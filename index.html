@@ -5,10 +5,9 @@
 <head>
 
   <meta charset="UTF-8">
-  <title>Employee Tracker</title>
+  <title>Train Tracker</title>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Giphtastic</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lemon">
@@ -24,6 +23,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <!-- Link in Fire Base CDN -->
+
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 
 
@@ -33,100 +34,139 @@
   <!-- Moment.js Reference -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
-  <style>
-    #employee-table th,
-    td {
-      display: inline-block;
-      width: 16.575%;
-    }
-  </style>
 </head>
 
 <body>
 
-  <!-- Employee Tracker -->
-  <div class="container">
-
     <!-- Jumbotron -->
     <div class="jumbotron jumbotron-fluid">
       <h1 class="text-center">Train Schedules</h1>
-      <h3 class="text-center">A Comprehensive Directory of Employee Billable Hours</h3>
 
     </div>
-    
-    <section>
-        <article>
-          <svg width="256" height="112" viewBox="0 0 256 112">
-            <path fill="none" stroke="#FFF" d="M8,56 C8,33.90861 25.90861,16 48,16 C70.09139,16 88,33.90861 88,56 C88,78.09139 105.90861,92 128,92 C150.09139,92 160,72 160,56 C160,40 148,24 128,24 C108,24 96,40 96,56 C96,72 105.90861,92 128,92 C154,93 168,78 168,56 C168,33.90861 185.90861,16 208,16 C230.09139,16 248,33.90861 248,56 C248,78.09139 230.09139,96 208,96 L48,96 C25.90861,96 8,78.09139 8,56 Z"/>
-          </svg>
-          <div id="green-path">
-              <div class="greenPath">
-              </div>
-              </div>
-          
-        </article>
 
-    <div class="row">
+  <!-- Page Title -->
+  <!-- <div id = "logo" class="col-lg-8 col-sm-8 col-xs-8"> -->
+    <!-- <h1 class="text-center">Train Schedule App</h1>
+    <h2 class="text-center">Add a Train or View the Schedule</h2>
+    <h4 class="text-center">Updated every minute, on the minute</h4>
+  </div> -->
 
-      <div class="col-md-12">
+  <!-- Right Train Image -->
+  <!-- <div class="col-lg-2 col-sm-2 col-xs-2">
+    <img src="assets/images/TrainRight.png">
+    <img src="assets/images/TrainRight.png">
+  </div> -->
 
-        <!-- Current Employees-->
-        <div class="card mb-4">
-          <div class="card-header">Current Employees</div>
-          <div class="card-body">
-            <table class="table table-sm table-hover table-dark" id='employee-table'>
-              <thead>
-                <tr>
-                  <th scope="col">Employee Name</th>
-                  <th scope="col">Role</th>
-                  <th scope="col">Start Date</th>
-                  <th scope="col">Months Worked</th>
-                  <th scope="col">Monthly Rate ($)</th>
-                  <th scope="col">Total Billed ($)</th>
-                </tr>
-              </thead>
-              <tbody>
-              </tbody>
-            </table>
-          </div>
-        </div>
+<!-- </div> -->
+
+
+
+<!-- Main Page Container -->
+<div class="container">
+
+<!-- Current Time -->
+<div class="row">
+<div class="col-lg-12">
+  <h1 class="text-center clock-display">Current Time: <span id = "current-time" class = "clock-display"></span></h1>
+</div>
+</div>
+
+<br>
+
+
+<!-- Current Train Schedule Panel -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+
+      <!-- Panel Title -->
+      <div class="panel-heading bg-light">
+        <h3 class="panel-title">Current Train Schedule</h3>
+      </div>
+
+      <!-- Panel Body -->
+      <div class="panel-body">
+
+        <!-- Table of Train Schedule -->
+        <table class="table bg-light table-hover table-bordered">
+
+          <!-- Table Header -->
+          <tr id = "static-table-header">
+            <th>Train Name</th>
+            <th>Destination</th>
+            <th>Frequency (min)</th>
+            <th>Next Departure</th>
+            <th>Minutes to Departure</th>
+          </tr>
+
+          <!-- Note: Table Body is Dynamically Generated -->
+
+        </table>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-md-12">
-        <!-- Add Employee  -->
-        <div class="card mb-4">
-          <div class="card-header">Add Employee</div>
-          <div class="card-body">
-
-            <!-- Entry Form -->
-            <form>
-              <div class="form-group">
-                <label for="employee-name-input">Employee Name</label>
-                <input class="form-control" id="employee-name-input" placeholder="Jane Doe" type="text">
-              </div>
-              <div class="form-group">
-                <label for="role-input">Role</label>
-                <input class="form-control" id="role-input" placeholder="CEO" type="text">
-              </div>
-              <div class="form-group">
-                <label for="start-input">Start Date (MM/DD/YYYY)</label>
-                <input class="form-control" id="start-input" placeholder="01/08/1989" type="text">
-              </div>
-              <div class="form-group">
-                <label for="rate-input">Monthly Rate</label>
-                <input class="form-control" id="rate-input" placeholder="200000" type="text">
-              </div>
-              <button class="btn btn-success float-right" id="add-employee-btn">Submit</button>
-            </form>
-
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+</div>
+
+
+<!-- Add a Train Panel -->
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel bg-light panel-default">
+
+      <!-- Panel Title -->
+      <div class="panel-heading">
+        <h3 class="panel-title">Add a Train</h3>
+      </div>
+      
+      <!-- Panel Body -->
+      <div class="panel-body">
+
+        <!-- Add a Train Form -->
+        <form role="form">
+
+          <!-- Train Name -->
+          <div class="form-group">
+            <label for="text">Train Name</label>
+            <input type="text" class="form-control" id="nameInput">
+          </div>
+          
+          <!-- Destination -->
+          <div class="form-group">
+            <label for="text">Train Destination</label>
+            <input type="text" class="form-control" id="destinationInput">
+          </div>
+  
+          <!-- First Train Time -->
+          <div class="form-group">
+            <label for="text">First Departure for Today (Military Time - hh:mm)</label>
+            <input type="text" class="form-control" id="firstArrivalInput">
+          </div>
+          
+          <!-- Frequency -->
+          <div class="form-group">
+            <label for="text">Frequency of Departures (min)</label>
+            <input type="number" class="form-control" id="frequencyInput">
+          </div>
+          
+          <!-- Submit Button (send to database) -->
+          <button type="submit" class="btn btn-default" id="addTrainButton">Submit</button>
+
+        </form>
+
+      </div>
+    </div>
+  </div>    
+</div>
+
+</div>
+
+<!-- Link in jQuery CDN -->
+<!-- <script src="https://code.jquery.com/jquery.js"></script> -->
+
+
+<!-- Link in Moment.js CDN -->
+<!-- <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script> -->
+
 
   <!-- JavaScript -->
   <script src="/assets/javascript/app.js"></script>
