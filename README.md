@@ -15,5 +15,5 @@ This is a train schedule application that incorporates Firebase to host arrival 
 [Link to my Portfolio](https://mike929.github.io/Bootstrap-Portfolio/portfolio.html)
 
 <p align="center">
-  <img src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png" width="256" title="Github Logo">
+  <img src="https://github.com/mike929/Train-Scheduler/blob/master/assets/images/Capture.PNG" width="256" title="ScreenShot">
 </p>
